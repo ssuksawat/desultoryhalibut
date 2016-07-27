@@ -50,5 +50,4 @@ function authLocal(req, res) {
 
 // TODO
 // create the user model
-// add an exported secret to config
 // add a comparePassword function to utils

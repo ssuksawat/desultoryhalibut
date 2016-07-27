@@ -5,6 +5,7 @@
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
+    "bcrypt": "^0.8.7",
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
     "cron": "^1.1.0",
