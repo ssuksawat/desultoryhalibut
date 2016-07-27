@@ -7,7 +7,8 @@ const config = {
   development: {
     rootPath: rootPath,
     port: process.env.PORT || '3000',
-    db: process.env.DATABASE_URL || '',
+    secret: process.env.SECRET || 'all sphynxes are unique',
+    db: process.env.DATABASE_URL || 'postgres://postgres@localhost/sidestreet',
     logLevel: process.env.LOG_LEVEL || 'dev',
     twitter: {
       consumer_key: process.env.TWITTER_CONSUMER_KEY || 'QVTSH5DZGllrzCOK6ZzJMdc7c',
@@ -19,7 +20,8 @@ const config = {
   production: {
     rootPath: rootPath,
     port: process.env.PORT || '80',
-    db: process.env.DATABASE_URL || '',
+    secret: process.env.SECRET || 'all sphynxes are unique',
+    db: process.env.DATABASE_URL || 'postgres://postgres@localhost/sidestreet',
     logLevel: process.env.LOG_LEVEL || 'tiny',
     twitter: {
       consumer_key: process.env.TWITTER_CONSUMER_KEY || 'QVTSH5DZGllrzCOK6ZzJMdc7c',
