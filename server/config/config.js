@@ -1,10 +1,33 @@
-// API Keys
-// Twitter API
-process.env['consumer_key'] = 'URBt6LanYTUDnvzmQEAQMId0F';
-process.env['consumer_secret'] = 'qXOqcFMImuA0Zi09z8yzzFDJGRHvIVUiWlUiVlqPuZru6cwKgc';
-process.env['access_token'] = '3232137186-rdbsH7cp39IENWqSbeYbjQq5Q4PBOVCFpJ0hgjz';
-process.env['access_token_secret'] = 'myufOQRWeSnxkNzkWEA7iDHDjOAWUsK7nP9yqwVLKzBqO';
+const path = require('path');
 
-// Watsom API
-process.env["url"] = "https://gateway-a.watsonplatform.net/calls";
-process.env["apikey"] = "4540bd58466714d5ce58cb036c554e86d9f72d68";
+const env = process.env.NODE_ENV || 'development';
+const rootPath = path.join(__dirname, '../..');
+
+const config = {
+  development: {
+    rootPath: rootPath,
+    port: process.env.PORT || '3000',
+    db: process.env.DATABASE_URL || '',
+    logLevel: process.env.LOG_LEVEL || 'dev',
+    twitter: {
+      consumer_key: process.env.TWITTER_CONSUMER_KEY || 'QVTSH5DZGllrzCOK6ZzJMdc7c',
+      consumer_secret: process.env.TWITTER_CONSUMER_SECRET || '1T5fG8Spwnd6Owry9bdusvQP6ePo3bi4nHBda1r53kZl6vKMc8',
+      access_token: process.env.TWITTER_ACCESS_TOKEN || '3327635388-191K4BPqdz4OdNrEvgZCojJMxXhqRUGXH3YJu0X',
+      access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET || 'gXN4stJjlcArq194B4LaSQL2vxlQlV5k6qIRtZ2HB4L8M'
+    }
+  },
+  production: {
+    rootPath: rootPath,
+    port: process.env.PORT || '80',
+    db: process.env.DATABASE_URL || '',
+    logLevel: process.env.LOG_LEVEL || 'tiny',
+    twitter: {
+      consumer_key: process.env.TWITTER_CONSUMER_KEY || 'QVTSH5DZGllrzCOK6ZzJMdc7c',
+      consumer_secret: process.env.TWITTER_CONSUMER_SECRET || '1T5fG8Spwnd6Owry9bdusvQP6ePo3bi4nHBda1r53kZl6vKMc8',
+      access_token: process.env.TWITTER_ACCESS_TOKEN || '3327635388-191K4BPqdz4OdNrEvgZCojJMxXhqRUGXH3YJu0X',
+      access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET || 'gXN4stJjlcArq194B4LaSQL2vxlQlV5k6qIRtZ2HB4L8M'
+    }
+  }
+};
+
+module.exports = config[env];
