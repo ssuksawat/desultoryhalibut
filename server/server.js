@@ -1,45 +1,14 @@
-// Config routing and database for news and sentiment APIs
-var express = require('express');
-var twitterStream = require('./twitter/twitter-controller');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpack = require('webpack');
-var webpackConfig = require('../webpack.config.js');
-var tSentiment = require('./sentiment/twitter-sentiment-model');
-var app = express();
-var twitterCron = require('./workers/workers-twitter');
-var CronJob = require('cron').CronJob;
+const express = require('express');
+const config = require('./config/config');
 
-// cron job to compute average of Twitter data every 5 seconds to be used by Client
+const app = express();
 
-new CronJob('*/5 * * * * *', function() {
-  twitterCron.getCollections(twitterCron.channels);
-}, null, true, 'America/Los_Angeles');
-
-var compiler = webpack(webpackConfig);
-
-require('./config/mongoose')();
-require('./config/express')(app);
+require('./config/express')(app, config);
 require('./config/routes')(app);
-require('./workers/workers.js');
 
-// set static page
-app.use(express.static(__dirname + '/../client/www'));
-
-// boilerplate code, investigate further
-app.use(webpackDevMiddleware(compiler, {
-  hot: true,
-  filename: 'bundle.js',
-  publicPath: '/',
-  stats: {
-    colors: true,
-  },
-  historyApiFallback: true,
-}));
-
-var server = app.listen(3001, function() {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log('app listening at host, port:', host, port);
+const server = app.listen(config.port, function() {
+  const port = server.address().port;
+  console.log(`Listening on ${port}`);
 });
 
 module.exports = app;
