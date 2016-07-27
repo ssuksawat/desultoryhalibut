@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt');
+const Promise = require('bluebird').Promise;
+Promise.promisifyAll(bcrypt, { context: bcrypt });
 
 module.exports = {
   comparePassword,
@@ -29,6 +31,8 @@ function comparePassword(plaintext, hash) {
 
 
 
+
+// leftover function from first group that can probably be deleted
 // timeConverter: function (UNIX_timestamp){
 //   var a = new Date(UNIX_timestamp * 1000);
 //   var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
