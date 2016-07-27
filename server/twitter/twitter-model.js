@@ -1,38 +1,12 @@
-const mongoose = require('mongoose');
+const Sequelize = require('sequelize');
+const sequelize = require('../config/sequelize');
 
-const tweetSchema = mongoose.Schema({
-  tweet: {
-    type: String,
-    required: true
-  },
-  sentiment: {
-    type: Number,
-    required: true
-  },
-  tag: {
-    type: String,
-    required: true
-  },
-  time: {
-    type: Date,
-    default: Date.now
-  }
-});
+var tweetMetrics = sequelize.define('tweetmetric', {
+  score: {type: Sequelize.FLOAT},
+  topic: {type: Sequelize.STRING},
+  volume: {type: Sequelize.INTEGER},
+})
 
-const tweetAverageSchema = mongoose.Schema({
-  keyword: {
-    type: String,
-    required: true
-  },
-  data: {
-    type: Array,
-    required: true
-  }
-});
+tweetmetric.Sync();
 
-const tweetModels = {
-  Tweet: mongoose.model('Tweet', tweetSchema),
-  TweetAverage: mongoose.model('TweetAverage', tweetAverageSchema)
-};
-
-module.exports = tweetModels;
+module.exports = tweetMetric;

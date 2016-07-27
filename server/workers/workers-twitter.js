@@ -1,6 +1,6 @@
-const twitterModels = require('../twitter/twitter-model');
-const request = require('request');
-const mongoose = require('mongoose');
+twitterModels = require('../twitter/twitter-model');
+sentiment = require('sentiment');
+TwitterStreamChannels = require('twitter-stream-channels');
 
 // keywords used for live Twitter stream
 const channels = {
@@ -16,6 +16,14 @@ const channels = {
 
 
 // worker connects to Twitter API and starts stream
+
+for(channel in channels){
+  setInterval( function(channel) {
+
+  }, 5000)
+}
+
+
 
 const averageTweets = function(tweets, topic) {
   var tweets;
