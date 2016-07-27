@@ -7,7 +7,5 @@ sequelize.authenticate()
   .catch(err => { console.log(err); });
 
 
-module.exports = {
-  sequelize
-};
+module.exports = sequelize;
 

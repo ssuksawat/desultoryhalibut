@@ -1,14 +1,14 @@
 const sequelize = require('../config/sequelize');
+const Sequelize = require('sequelize');
+
 
 const User = sequelize.define('user', {
-  username: { type: Sequelize.String, allowNull: false, unique: true},
-  password: { type: Sequelize.String, allowNull: false },
-  fullname: {type: Sequelize.String, allowNull: false},
-  email: {type: Sequelize.String, allowNull: false, unique: true}
+  username: { type: Sequelize.STRING, allowNull: false, unique: true},
+  password: { type: Sequelize.STRING, allowNull: false },
+  fullname: {type: Sequelize.STRING, allowNull: false},
+  email: {type: Sequelize.STRING, allowNull: false, unique: true}
 });
 
-User.sync;
+User.sync();
 
-module.exports = {
-  User
-};
+module.exports = User;
