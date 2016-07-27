@@ -15,8 +15,8 @@ passport.use(new JwtStrategy(
   {
     secretOrKey: config.secret,
     jwtFromRequest: ExtractJwt.fromAuthHeader()
-  }, (jwt_payload, done) => {
-    User.findOne({ where: { id: jwt_payload.id }})
+  }, (jwtPayload, done) => {
+    User.findOne({ where: { id: jwtPayload.id }})
       .then(user => {
         if (user) {
           done(null, user);
@@ -44,10 +44,3 @@ function authLocal(req, res) {
       }
     });
 }
-
-
-
-
-// TODO
-// create the user model
-// add a comparePassword function to utils
