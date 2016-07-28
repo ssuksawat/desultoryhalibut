@@ -3,7 +3,9 @@ const Topic = require('../topics/topic.model');
 const moment = require('moment');
 const sequelize = require('../config/sequelize');
 
-module.exports = get;
+module.exports = {
+  get: get,
+};
 
 /***** PUBLIC *****/
 
