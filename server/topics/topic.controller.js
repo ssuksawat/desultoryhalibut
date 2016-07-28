@@ -25,16 +25,12 @@ function addTopic(req, res, next) {
   .catch(err => console.error(`Error writing topic to db: ${err}`));
 }
 
-function getAllTopics(req, res) {
-  Topic.find()
-    .catch(err => console.error(`Error getting topics from db: ${err}`));
-}
-
 function removeTopic(req, res) {
   Topic.destroy({
     where: {
       id: req.body.topicId
     }
   })
-    .catch(err => console.error(`Error deleting topic from db: ${err}`));
+  .then(() => res.sendStatus(200))
+  .catch(err => res.sendStatus(500));
 }

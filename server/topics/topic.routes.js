@@ -3,9 +3,7 @@ const TopicCtrl = require('./topic.controller');
 const UserTopicsCtrl = require('../user-topics.controller');
 
 
-TopicRouter.post('/addTopic', TopicCtrl.addTopic, UserTopicsCtrl.addUserTopic);
-TopicRouter.get('/getAllTopics', TopicCtrl.getAllTopics);
-
+TopicRouter.post('/add', TopicCtrl.addTopic, UserTopicsCtrl.addUserTopic);
 
 module.exports = TopicRouter;
 

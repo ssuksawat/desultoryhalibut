@@ -20,7 +20,6 @@ passport.use(new JwtStrategy(
       .then(user => {
         if (user) {
           //see if this still works if comment out req.user = user (i.e. it is done automatically)
-          req.user = user;
           done(null, user);
         } else {
           done(null, false);
@@ -39,8 +38,7 @@ function authLocal(req, res) {
             if (!match) {
               done(null, false);
             } else {
-              req.user = user;
-              done(null);
+              done(null, user);
             }
           });
       }

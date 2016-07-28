@@ -23,7 +23,8 @@ function addUserTopic(req, res) {
         topicId: req.topic.topicId,
         userId: req.topic.userId,
       })
-      .catch(err => console.error(`Error writing usertopic to db: ${userTopic}`));
+      .then(() => res.send(201))
+      .catch(err => res.send(500));
     }
   });
 }
@@ -31,10 +32,13 @@ function addUserTopic(req, res) {
 function getAllUserTopics(req, res) {
   UserTopic.find({
     where: {
-      // pull userId off the token?
       userId: req.user.id
     }
-  });
+  })
+  .then((results) => {
+    res.json(results);
+  })
+  .catch(() => res.send(500));
 }
 
 function removeUserTopic(req, res, next) {
@@ -43,14 +47,16 @@ function removeUserTopic(req, res, next) {
       userId: req.user.id,
       topicId: req.body.topicId,
     }
-  });
-  UserTopic.find({
-    topicId: req.body.topicId,
   })
-    .then(userTopics => {
-      if(!userTopics) {
-        next(null);
-      }
-    })
-    .catch(err => console.error(`Error finding usertopics in db: ${err}`));
+  .then(() => {
+    return UserTopic.findOne({
+      topicId: req.body.topicId,
+    });
+  })
+  .then(userTopic => {
+    if(!userTopic) {
+      next(null);
+    }
+  })
+  .catch(err => res.sendStatus(500));
 }
