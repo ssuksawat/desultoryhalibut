@@ -4,7 +4,7 @@ const config = require('./config/config');
 const app = express();
 
 require('./config/express')(app, config);
-require('./config/routes')(app);
+require('./config/routes')(app, config);
 
 const server = app.listen(config.port, function() {
   const port = server.address().port;
