@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar.component';
-import TwitterChart from './Twitter.component';
+import TwitterChart from './TwitterChart.component';
 
 export default class AppComponent extends Component {
   constructor(props) {
