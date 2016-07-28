@@ -8,7 +8,7 @@ module.exports = get;
 /***** PUBLIC *****/
 
 function get(req, res) {
-  const topics = req.query.topics;
+  var topics = req.query.topics;
   const timeframe = req.query.timeframe;
   const numTimeUnits = timeframe.slice(0, timeframe.length - 1);
   const timeUnit = timeframe.charAt(timeframe.length - 1);
@@ -23,7 +23,6 @@ function get(req, res) {
   stringTopics += ')';
 
   TweetMetric.findAll({
-
     where: {
       topicId: {
         $in: sequelize.literal(`(SELECT id FROM topics WHERE topic in ${stringTopics})`),
@@ -33,12 +32,11 @@ function get(req, res) {
       },
     },
   })
-    .then((tweetMetrics) => {
+    .then(tweetMetrics => {
       tweetMetrics = tweetMetrics.map((tweetMetric) => {
         return tweetMetric.dataValues;
       });
-      console.log(tweetMetrics);
       res.send(tweetMetrics);
     })
-    .catch((err) => res.sendStatus(500));
+    .catch(() => res.sendStatus(500));
 }
