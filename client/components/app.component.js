@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import NavBar from './nav-bar.component';
-import TwitterChart from './twitter.component';
+import Navbar from './Navbar.component';
+import TwitterChart from './Twitter.component';
 
 export default class AppComponent extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ export default class AppComponent extends Component {
     return (
       <div>
         <header>
-          <NavBar />
+          <Navbar />
         </header>
 
         <div className="main-content">
