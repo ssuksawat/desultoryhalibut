@@ -1,4 +1,4 @@
-const TweetMetrics = require('./twitter-model');
+const TweetMetric = require('./twitter-model');
 const moment = require('moment');
 const Topic = require('../topics/topic.model');
 
@@ -11,7 +11,7 @@ module.exports = {
 function get(req, res) {
   const topics = req.query.topics;
   const timeframe = req.query.timeframe;
-  const moment = moment.invoke().subtract(timeframe);
+  const timerange = moment().subtract(timeframe);
 
   // convert the topic names to topic IDs using the Topics table
   // then lookup sentiment using topic IDs which is an index for the 
@@ -28,12 +28,29 @@ function get(req, res) {
     .then((topics) => {
       // get the all the topic primary keys and find all tweetMetrics
       // whose foreign key matches.
-      TweetMetrics.findAll({
-      })
+      const topicIds = topics.map(topic => topic.id);
+      return TweetMetric.findAll({
+        where: {
+          topicId: {
+            $in: topicIds
+          },
+          //TODO: insert moment logic
+        }
+      });
     })
-    .then()
+
+    .then((tweetMetrics) => console.log(tweetMetrics)) // res.send(tweetMetrics))
+    .catch((err) => console.error(err));//(res.sendStatus(500));
   
 }
 
 
-//TODO: add an index on the topicId foreign key column of tweetMetrics
+// test:
+const request = {
+  query: {
+    topics: ['sports', 'godzilla']
+  },
+  timeframe: '1d'
+};
+
+get(request, null);
