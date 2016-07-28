@@ -20,7 +20,10 @@ const channels = {
 //     twitterModels.Tweet.create({ tweet: tweet.text, sentiment: sentimentData.score, tag: tag});
 //   }
 // };
-var stream = client.streamChannels({track:channels});
+var stream = client.streamChannels({
+  track: channels, 
+  language: "en"
+});
 
 // for(var topic of channels) {
 //   var channel = 'channels/' + topic;
@@ -43,25 +46,25 @@ Object.keys(channels).forEach(topic => {
   stream.on(channel, function(tweet) {
     cache[tag].total++;
     cache[tag].sentiment += sentiment(tweet.text).score;
-    console.log('tag', tag, cache[tag].total, cache[tag].sentiment)
+    console.log('tag', tag, 'text', tweet.text, cache[tag].total, cache[tag].sentiment)
     });
 })
 
-setInterval(() => {
-  // var oldCache = cache;
-  // cache = {}
-  for(tag in cache){
-    if(cache[tag].total !== 0){
-      var average = cache[tag].sentiment/cache[tag].total;
-        twitterModels.create({
-          score: average,
-          topic: tag,
-          volume: cache[tag].total
-        })
-      cache[tag] = {sentiment: 0, total: 0};
-    }
-  }
-}, 1000)
+// setInterval(() => {
+//   // var oldCache = cache;
+//   // cache = {}
+//   for(tag in cache){
+//     if(cache[tag].total !== 0){
+//       var average = cache[tag].sentiment/cache[tag].total;
+//         twitterModels.create({
+//           score: average,
+//           topic: tag,
+//           volume: cache[tag].total
+//         })
+//       cache[tag] = {sentiment: 0, total: 0};
+//     }
+//   }
+// }, 1000)
 
 // keywords used for live Twitter stream
 // const channelz = {
