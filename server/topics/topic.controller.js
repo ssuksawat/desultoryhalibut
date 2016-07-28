@@ -2,7 +2,6 @@ const Topic = require('./topic.model');
 
 module.exports = {
   addTopic,
-  getAllTopics,
   removeTopic,
 };
 /******** PUBLIC ********/
