@@ -4,7 +4,7 @@ const UserTopic = require('./user-topics.model');
 module.exports = {
   addUserTopic,
   getAllUserTopics,
-  RemoveUserTopic,
+  removeUserTopic,
 };
 /******** PUBLIC ********/
 
