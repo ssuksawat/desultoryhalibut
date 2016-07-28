@@ -1,12 +1,12 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/sequelize');
 
-var tweetMetrics = sequelize.define('tweetmetric', {
+const tweetMetrics = sequelize.define('tweetmetric', {
   score: {type: Sequelize.FLOAT},
   topic: {type: Sequelize.STRING},
-  volume: {type: Sequelize.INTEGER},
-})
+  volume: {type: Sequelize.INTEGER}
+});
 
-tweetmetric.Sync();
+tweetMetrics.sync();
 
-module.exports = tweetMetric;
+module.exports = tweetMetrics;
