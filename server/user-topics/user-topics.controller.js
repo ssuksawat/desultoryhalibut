@@ -59,4 +59,5 @@ function removeUserTopic(req, res, next) {
     }
   })
   .catch(err => res.sendStatus(500));
+
 }

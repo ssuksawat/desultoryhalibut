@@ -25,6 +25,7 @@ function addTopic(req, res, next) {
   .catch(err => console.error(`Error writing topic to db: ${err}`));
 }
 
+
 function removeTopic(req, res) {
   Topic.destroy({
     where: {
