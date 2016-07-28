@@ -1,12 +1,15 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/sequelize');
+const Topic = require('../topics/topic.model');
 
-const tweetMetrics = sequelize.define('tweetmetric', {
-  score: {type: Sequelize.FLOAT},
-  topic: {type: Sequelize.STRING},
-  volume: {type: Sequelize.INTEGER}
+const TweetMetric = sequelize.define('tweetmetric', {
+  score: { type: Sequelize.FLOAT },
+  topicname: { type: Sequelize.STRING },
+  volume: { type: Sequelize.INTEGER },
 });
 
-tweetMetrics.sync();
 
-module.exports = tweetMetrics;
+Topic.hasMany(TweetMetric, { foreignKey: 'topicId'});
+TweetMetric.belongsTo(Topic, {foreignKey: 'topicId'});
+
+TweetMetric.sync();
