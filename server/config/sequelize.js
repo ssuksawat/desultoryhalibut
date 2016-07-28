@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
 const config = require('./config');
+const Sequelize = require('sequelize');
 const sequelize = new Sequelize(config.db);
 
 sequelize.authenticate()
@@ -7,7 +7,5 @@ sequelize.authenticate()
   .catch(err => { console.log(err); });
 
 
-module.exports = {
-  sequelize
-};
+module.exports = sequelize;
 
