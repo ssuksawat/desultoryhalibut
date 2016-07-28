@@ -10,7 +10,7 @@ const TweetMetric = sequelize.define('tweetmetric', {
 }, {
   indexes: [{
     unique: false,
-    fields: ['topicId']
+    fields: ['topicId', 'createdAt']
   }]
 });
 

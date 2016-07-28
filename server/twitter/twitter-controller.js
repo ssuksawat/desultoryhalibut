@@ -1,10 +1,9 @@
 const TweetMetric = require('./twitter-model');
-const moment = require('moment');
 const Topic = require('../topics/topic.model');
+const moment = require('moment');
+const sequelize = require('../config/sequelize');
 
-module.exports = {
-  get
-};
+module.exports = get;
 
 /***** PUBLIC *****/
 
@@ -15,38 +14,30 @@ function get(req, res) {
   const timeUnit = timeframe.charAt(timeframe.length - 1);
   const timerange = moment().subtract(numTimeUnits, timeUnit);
 
-  // convert the topic names to topic IDs using the Topics table
-  // then lookup sentiment using topic IDs which is an index for the 
-  // TweetMetrics table
-  Topic.findAll({
-    where: {
-      topic: {
-        $like: {
-          $any: topics
-        }
-      }
-    }
-  })
-    .then((topics) => {
-      // get the all the topic primary keys and find all tweetMetrics
-      // whose foreign key matches.
-      const topicIds = topics.map(topic => topic.id);
-      return TweetMetric.findAll({
-        where: {
-          topicId: {
-            $in: topicIds,
-          },
-          createdAt: {
-            $gt: timerange,
-          },
-        },
-      });
-    })
+  // combining ORM query with a raw query in order to execute a subquery
+  // inner query gets the ids of all topics passed by client; outer query
+  // finds all tweetmetrics with those foreign key ids
+  var stringTopics = '(';
+  topics.forEach(topic => stringTopics += `'${topic}', `);
+  stringTopics = stringTopics.slice(0, stringTopics.length - 2);
+  stringTopics += ')';
 
+  TweetMetric.findAll({
+
+    where: {
+      topicId: {
+        $in: sequelize.literal(`(SELECT id FROM topics WHERE topic in ${stringTopics})`),
+      },
+      createdAt: {
+        $gt: timerange,
+      },
+    },
+  })
     .then((tweetMetrics) => {
       tweetMetrics = tweetMetrics.map((tweetMetric) => {
         return tweetMetric.dataValues;
       });
+      console.log(tweetMetrics);
       res.send(tweetMetrics);
     })
     .catch((err) => res.sendStatus(500));
