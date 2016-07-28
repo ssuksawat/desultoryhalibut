@@ -3,7 +3,7 @@ const moment = require('moment');
 const Topic = require('../topics/topic.model');
 
 module.exports = {
-  get: get
+  get
 };
 
 /***** PUBLIC *****/
@@ -11,7 +11,9 @@ module.exports = {
 function get(req, res) {
   const topics = req.query.topics;
   const timeframe = req.query.timeframe;
-  const timerange = moment().subtract(timeframe);
+  const numTimeUnits = timeframe.slice(0, timeframe.length - 1);
+  const timeUnit = timeframe.charAt(timeframe.length - 1);
+  const timerange = moment().subtract(numTimeUnits, timeUnit);
 
   // convert the topic names to topic IDs using the Topics table
   // then lookup sentiment using topic IDs which is an index for the 
@@ -32,25 +34,20 @@ function get(req, res) {
       return TweetMetric.findAll({
         where: {
           topicId: {
-            $in: topicIds
+            $in: topicIds,
           },
-          //TODO: insert moment logic
-        }
+          createdAt: {
+            $gt: timerange,
+          },
+        },
       });
     })
 
-    .then((tweetMetrics) => console.log(tweetMetrics)) // res.send(tweetMetrics))
-    .catch((err) => console.error(err));//(res.sendStatus(500));
-  
+    .then((tweetMetrics) => {
+      tweetMetrics = tweetMetrics.map((tweetMetric) => {
+        return tweetMetric.dataValues;
+      });
+      res.send(tweetMetrics);
+    })
+    .catch((err) => res.sendStatus(500));
 }
-
-
-// test:
-const request = {
-  query: {
-    topics: ['sports', 'godzilla']
-  },
-  timeframe: '1d'
-};
-
-get(request, null);
