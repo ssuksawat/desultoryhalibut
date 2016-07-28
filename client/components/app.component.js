@@ -11,7 +11,7 @@ export default class AppComponent extends Component {
   }
 
   fetchTweets () {
-    fetch('api/twitter')
+    fetch('api/twitter') // TODO: add query for "topics" and "timeframe"
       .then(res => res.json())
       .then(dataArray => {
         let streams = {};
@@ -25,8 +25,8 @@ export default class AppComponent extends Component {
   }
 
   componentWillMount() {
-    setInterval(this.fetchTweets.bind(this), 5000);
-    this.fetchTweets();
+    // setInterval(this.fetchTweets.bind(this), 5000);
+    // this.fetchTweets();
   }
 
   render() {
