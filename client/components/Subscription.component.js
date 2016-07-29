@@ -15,5 +15,3 @@ const Subscription = ({currentNewTopicValue, onNewTopicChange}) => {
 }
 
 export default Subscription;
-
-

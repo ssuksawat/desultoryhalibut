@@ -22,4 +22,3 @@ const Menu = ({currentNewTopicValue, onNewTopicChange}) => {
 	);
 }
 
-export default Menu;

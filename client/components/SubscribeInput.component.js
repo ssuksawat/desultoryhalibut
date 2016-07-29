@@ -20,4 +20,3 @@ const SubscribeInput = ({currentNewTopicValue, onNewTopicChange}) => {
 //	      <label for="addTopic">First Name</label>
 
 export default SubscribeInput;
-

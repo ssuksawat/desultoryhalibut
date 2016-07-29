@@ -11,4 +11,3 @@ const SubscribeList = (props) => {
 }
 
 export default SubscribeList;
-
