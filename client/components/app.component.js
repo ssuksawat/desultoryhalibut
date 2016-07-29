@@ -6,7 +6,10 @@ export default class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      streams: null
+      streams: null,
+      username: null,
+      password: null,
+      confirmPassword: null,
     };
   }
 
@@ -29,6 +32,12 @@ export default class AppComponent extends Component {
     this.fetchTweets();
   }
 
+  setAppStateOnChange(event) {
+    this.setState({
+      event.target.name: event.target.value
+    })
+  }
+
   render() {
     let charts;
     if (this.state.streams) {
@@ -40,7 +49,7 @@ export default class AppComponent extends Component {
     return (
       <div>
         <header>
-          <Navbar />
+          <Navbar setAppStateOnChange={this.setAppStateOnChange.bind(this)}/>
         </header>
 
         <div className="main-content">

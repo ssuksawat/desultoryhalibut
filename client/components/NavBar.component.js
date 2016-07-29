@@ -6,6 +6,7 @@ export default class NavBar extends Component {
     super(props);
   }
 
+
   render() {
 
     return (
