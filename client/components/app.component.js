@@ -6,11 +6,19 @@ export default class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      login: {
+        username: null,
+        password: null,
+        confirmPassword: null,
+        fullName: null,
+        email: null,
+      },
       streams: null,
-      username: null,
-      password: null,
-      confirmPassword: null,
     };
+
+    this.setAppStateOnChange = this.setAppStateOnChange.bind(this);
+    this.login.bind(this);
+    this.signup.bind(this);
   }
 
   fetchTweets () {
@@ -34,8 +42,45 @@ export default class AppComponent extends Component {
 
   setAppStateOnChange(event) {
     this.setState({
-      event.target.name: event.target.value
+      login[event[target.name]]: event.target.value
     })
+  }
+
+  login() {
+    if (this.state.password !== this.state.confirmPassword) {
+      // for now:
+      alert('Passwords do not match')
+      return;
+    }
+    
+    fetch('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        this.state.login.username,
+        this.state.login.password,
+        
+      }),
+    })
+      .then(response => {
+        // cache the token in local storage, using the user id as the key
+        window.localStorage.setItem('jwt', response.body.token);
+      });
+  }
+
+  signup() {
+    fetch('/api/auth/signup', {
+      method: 'POST',
+      body: JSON.stringify({
+        this.state.login.username,
+        this.state.login.password,
+        this.state.login.fullName,
+        this.state.login.email,
+      }),
+    })
+      .then(response => {
+        // cache the token in local storage, using the user id as the key
+        window.localStorage.setItem('jwt', response.body.token);
+      });
   }
 
   render() {
@@ -49,7 +94,11 @@ export default class AppComponent extends Component {
     return (
       <div>
         <header>
-          <Navbar setAppStateOnChange={this.setAppStateOnChange.bind(this)}/>
+          <Navbar setAppStateOnChange={ this.setAppStateOnChange }
+                  loginValues={this.state.login}
+                  login={ this.login }
+                  signup={ this.signup }
+        />
         </header>
 
         <div className="main-content">

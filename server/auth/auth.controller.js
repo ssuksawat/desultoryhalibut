@@ -2,14 +2,14 @@ const jwt = require('jwt-simple');
 const config = require('../config/config');
 const utils = require('../config/utils');
 
-module.exports  = {
-	login,
+module.exports = {
+  login,
 	addUser,
-	affirmValidToken
-}
+	affirmValidToken,
+};
 
 function login(req, res) {
-	const token = jwt.encode({
+  const token = jwt.encode({
 		id: req.user.id,
 		username: req.user.username
 	}, config.secret);
