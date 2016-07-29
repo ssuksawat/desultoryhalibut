@@ -2,8 +2,9 @@ const Topic = require('./topic.model');
 
 module.exports = {
   addTopic,
-  removeTopic,
+  removeTopic
 };
+
 /******** PUBLIC ********/
 
 // add the topic from user input if it does not already exist in db
@@ -20,8 +21,11 @@ function addTopic(req, res, next) {
       return topics;
     }
   })
-  .then((topic) => next(null, topic))
-  .catch(err => console.error(`Error writing topic to db: ${err}`));
+  .then(topic => next(null, topic))
+  .catch(err => {
+    console.error(`Error writing topic to db: ${err}`);
+    res.status(500).send({message: 'Error adding new topic'});
+  });
 }
 
 
