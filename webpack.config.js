@@ -24,10 +24,6 @@ var config = {
         test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
         loader: 'url?prefix=font/&limit=5000'
       }
-      // {
-      //   test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-      //   loader : 'file-loader?prefix=font/'
-      // }
     ],
   },
   resolveLoader: {
