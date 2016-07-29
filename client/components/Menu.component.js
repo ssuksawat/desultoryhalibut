@@ -1,22 +1,25 @@
 import React from 'react';
 //import AuthButton from './AuthButton.component';
-//import Subscription from './Subscription.component';
+import Subscription from './Subscription.component';
 
-
-// Initialize collapse button
-// $(".button-collapse").sideNav(); <~~~~~~~~~~~ Goes in App?
-
-const Menu = (props) => {
+const Menu = ({currentNewTopicValue, onNewTopicChange}) => {
 	return (
-		<div>
-			<ul id="slide-out" class="side-nav">
-			    <li>AuthButton</li>
-			    <li><div class="divider"></div></li>
-			    <li><a class="subheader">Subscription stuff:</a></li>
-			    <li>Subscription</li>
+		<span>
+			<a href="#" data-activates="slide-out" className="button-collapse right show-on-large"><i className="material-icons">menu</i></a>
+			<ul id="slide-out" className="side-nav">
+			    <li><a>Login</a></li>
+			    <li><a>Signup</a></li>
+			    <li><a><div className="divider"></div></a></li>
+			    <li><a className="subheader">Subscription stuff:</a></li>
+			    <li>
+			    	<Subscription 
+			    		currentNewTopicValue={currentNewTopicValue}
+			    		onNewTopicChange={onNewTopicChange}
+			    	/>
+			    </li>
 			</ul>
-			<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-		</div>
+		</span>
 	);
 }
 
+export default Menu;
