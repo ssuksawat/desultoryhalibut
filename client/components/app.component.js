@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import Navbar from './Navbar.component';
+import NavBar from './NavBar.component';
 import TwitterChart from './TwitterChart.component';
 
 export default class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      streams: null
+      streams: null,
+      currentNewTopicValue: ""
     };
+
+    this.onNewTopicChange = this.onNewTopicChange.bind(this);
   }
 
   fetchTweets () {
@@ -29,6 +32,20 @@ export default class AppComponent extends Component {
     // this.fetchTweets();
   }
 
+  componentDidMount() {
+    $(".button-collapse").sideNav({
+      menuWidth: 500,
+      edge: 'right',
+      closeOnClick: true,
+    });
+  }
+
+  onNewTopicChange(event) {
+    this.setState({
+      currentNewTopicValue: event.target.value
+    });
+  }
+
   render() {
     let charts;
     if (this.state.streams) {
@@ -40,7 +57,10 @@ export default class AppComponent extends Component {
     return (
       <div>
         <header>
-          <Navbar />
+          <NavBar
+            currentNewTopicValue={this.state.currentNewTopicValue}
+            onNewTopicChange={this.onNewTopicChange}
+          />
         </header>
 
         <div className="main-content">
