@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
+import Menu from './Menu.component';
+import Subscription from './Subscription.component';
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -10,15 +11,12 @@ export default class NavBar extends Component {
   render() {
 
     return (
-        <nav className="navbar navbar-fixed-top navbar-dark bg-primary">
-
-            <div className="container">
-              <a className="navbar-brand" href="/">Sidestreet Analytics</a>
-              <ul className="nav navbar-nav">
-                <li className="nav-item"></li>
-              </ul>
-            </div>
-
+        <nav className="nav-wrapper">
+          <a className="app-logo" href="#">Sidestreet Analytics</a>
+          <Menu
+            currentNewTopicValue={this.props.currentNewTopicValue}
+            onNewTopicChange={this.props.onNewTopicChange}
+          />
         </nav>
     );
   }

@@ -7,4 +7,3 @@ TopicRouter.post('/add', TopicCtrl.addTopic, UserTopicsCtrl.addUserTopic);
 
 
 module.exports = TopicRouter;
-

@@ -32,13 +32,14 @@ function get(req, res) {
       createdAt: {
         $gt: timerange,
       },
-    },
+    }
   })
-    .then(tweetMetrics => {
-      tweetMetrics = tweetMetrics.map((tweetMetric) => {
-        return tweetMetric.dataValues;
-      });
-      res.send(tweetMetrics);
-    })
-    .catch(() => res.sendStatus(500));
+  .then(tweetMetrics => {
+    tweetMetrics = tweetMetrics.map(tweetMetric => tweetMetric.dataValues);
+    res.send(tweetMetrics);
+  })
+  .catch(err => {
+    console.error(err);
+    res.sendStatus(500);
+  });
 }

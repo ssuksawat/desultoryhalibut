@@ -6,7 +6,7 @@ var config = {
     './main.js',
   ],
   output: {
-    path: path.join(__dirname, 'client/www'),
+    path: path.join(__dirname, 'client/www/dist'),
     filename: 'bundle.js',
   },
   module: {
@@ -16,6 +16,14 @@ var config = {
         exclude: /node_modules/,
         loaders: ['babel'],
       },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass']
+      },
+      {
+        test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+        loader: 'url?prefix=font/&limit=5000'
+      }
     ],
   },
   resolveLoader: {

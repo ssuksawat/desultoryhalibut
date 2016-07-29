@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Navbar from './Navbar.component';
-import TwitterChart from './Twitter.component';
+import NavBar from './NavBar.component';
+import TwitterChart from './TwitterChart.component';
 
 export default class AppComponent extends Component {
   constructor(props) {
@@ -14,15 +14,16 @@ export default class AppComponent extends Component {
         email: null,
       },
       streams: null,
+      currentNewTopicValue: null,
     };
-
     this.setAppStateOnChange = this.setAppStateOnChange.bind(this);
     this.login.bind(this);
     this.signup.bind(this);
+    this.onNewTopicChange = this.onNewTopicChange.bind(this);
   }
 
   fetchTweets () {
-    fetch('api/twitter')
+    fetch('api/twitter') // TODO: add query for "topics" and "timeframe"
       .then(res => res.json())
       .then(dataArray => {
         let streams = {};
@@ -36,8 +37,22 @@ export default class AppComponent extends Component {
   }
 
   componentWillMount() {
-    setInterval(this.fetchTweets.bind(this), 5000);
-    this.fetchTweets();
+    // setInterval(this.fetchTweets.bind(this), 5000);
+    // this.fetchTweets();
+  }
+
+  componentDidMount() {
+    $(".button-collapse").sideNav({
+      menuWidth: 500,
+      edge: 'right',
+      closeOnClick: true,
+    });
+  }
+
+  onNewTopicChange(event) {
+    this.setState({
+      currentNewTopicValue: event.target.value
+    });
   }
 
   setAppStateOnChange(event) {
@@ -98,6 +113,8 @@ export default class AppComponent extends Component {
                   loginValues={this.state.login}
                   login={ this.login }
                   signup={ this.signup }
+                  currentNewTopicValue={this.state.currentNewTopicValue}
+                  onNewTopicChange={this.onNewTopicChange}
         />
         </header>
 

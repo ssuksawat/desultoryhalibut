@@ -4,8 +4,9 @@ const UserTopic = require('./user-topics.model');
 module.exports = {
   addUserTopic,
   getAllUserTopics,
-  removeUserTopic,
+  removeUserTopic
 };
+
 /******** PUBLIC ********/
 
 function addUserTopic(req, res) {

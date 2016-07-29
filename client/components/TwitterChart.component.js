@@ -14,7 +14,7 @@ export default class TwitterChart extends Component {
       return {
         time: index,
         numTweets: obj.volume,
-        sentimentAverage: obj.averageSentiment * NORMALIZE_OFFSET
+        sentimentAverage: obj.score * NORMALIZE_OFFSET
       };
     });
 
