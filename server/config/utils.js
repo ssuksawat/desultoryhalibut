@@ -25,5 +25,5 @@ function hashPassword(password) {
  * @return {boolean}
  */
 function comparePassword(plaintext, hash) {
-  return bcrypt.Async(plaintext, hash);
+  return bcrypt.compareAsync(plaintext, hash);
 }
