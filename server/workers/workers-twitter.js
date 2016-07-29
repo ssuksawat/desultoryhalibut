@@ -11,14 +11,14 @@ const client = new TwitterStreamChannels(config.twitter)
 
 let channels = {};
 let stream = {};
+let channelsID = {};
 
 fetchAndSubscribe();
 setInterval(fetchAndSubscribe, 30000);
 
 
 function watchChannels() {
-let cache = {};
-console.log('asdfasdf')
+  let cache = {};
   Object.keys(channels).forEach(topic => {
     const channel = 'channels/' + topic;
     console.log(channel);
@@ -28,8 +28,23 @@ console.log('asdfasdf')
       cache[tag].total++;
       cache[tag].sentiment += sentiment(tweet.text).score;
       console.log('tag', tag, 'text', tweet.text, cache[tag].total, cache[tag].sentiment);
-      });
+    });
   });
+
+  setInterval(() => {
+    for(var tag in cache){
+      if(cache[tag].total !== 0){
+        var average = cache[tag].sentiment/cache[tag].total;
+          twitterModels.create({
+            score: average,
+            topicname: tag,
+            volume: cache[tag].total,
+            topicId: channelsID[tag]
+          })
+        cache[tag] = {sentiment: 0, total: 0};
+      }
+    }
+  }, 10000)
 }
 
 function fetchAndSubscribe () {
@@ -39,6 +54,7 @@ function fetchAndSubscribe () {
         console.log('Tag: ', tag.topic);
         const item = tag.topic;
         channels[item] = [item];
+        channelsID[item] = tag.id;
       });
     })
     .then(unsubscribe)
