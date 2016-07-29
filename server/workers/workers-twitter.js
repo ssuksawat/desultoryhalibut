@@ -21,13 +21,11 @@ function watchChannels() {
   let cache = {};
   Object.keys(channels).forEach(topic => {
     const channel = 'channels/' + topic;
-    console.log(channel);
     const tag = '' + topic;
     cache[tag] = {sentiment: 0, total: 0};
     stream.on(channel, function(tweet) {
       cache[tag].total++;
       cache[tag].sentiment += sentiment(tweet.text).score;
-      console.log('tag', tag, 'text', tweet.text, cache[tag].total, cache[tag].sentiment);
     });
   });
 
@@ -48,8 +46,9 @@ function watchChannels() {
 }
 
 function fetchAndSubscribe () {
+  console.log('Refresh subscriptions...');
   Topic.findAll()
-    .then(topics => { 
+    .then(topics => {
       topics.forEach(function(tag) {
         console.log('Tag: ', tag.topic);
         const item = tag.topic;
@@ -64,7 +63,7 @@ function fetchAndSubscribe () {
 
 function subscribeToTopics() {
   stream = client.streamChannels({
-    track: channels, 
+    track: channels,
     language: "en"
   });
 }
