@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar.component';
 import TwitterChart from './TwitterChart.component';
+import Timeframe from './Timeframe.component';
 
 export default class AppComponent extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       streams: null,
       currentNewTopicValue: "",
@@ -13,14 +15,12 @@ export default class AppComponent extends Component {
     };
 
     this.onNewTopicChange = this.onNewTopicChange.bind(this);
+    this.onTimeClick = this.onTimeClick.bind(this);
   }
 
-  fetchTweets () {
-    const reqOps = {
-      headers: { 'Authorization': `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJzb21wb3AyIn0.-nugdkoFb2y2fLOR4ww_35_K2e39ABr8Y4rbKipJ8qI` }
-    };
+  fetchTweets() {
     const topicQuery = this.state.topics.map(topic => `topics=${topic}`).join('&');
-    fetch(`api/twitter?${topicQuery}&timeframe=${this.state.timeframe}`, reqOps)
+    fetch(`api/twitter?${topicQuery}&timeframe=${this.state.timeframe}`)
       .then(res => res.json())
       .then(dataArray => {
         let streams = {};
@@ -34,7 +34,7 @@ export default class AppComponent extends Component {
   }
 
   componentWillMount() {
-    setInterval(this.fetchTweets.bind(this), 5000);
+    // setInterval(this.fetchTweets.bind(this), 5000);
     this.fetchTweets();
   }
 
@@ -44,11 +44,18 @@ export default class AppComponent extends Component {
       edge: 'right',
       closeOnClick: true,
     });
+    $('.dropdown-button').dropdown();
   }
 
   onNewTopicChange(event) {
     this.setState({
       currentNewTopicValue: event.target.value
+    });
+  }
+
+  onTimeClick(timeframe) {
+    this.setState({
+      timeframe: timeframe || '1h'
     });
   }
 
@@ -68,6 +75,8 @@ export default class AppComponent extends Component {
             onNewTopicChange={this.onNewTopicChange}
           />
         </header>
+
+        <Timeframe setTimeframe={ this.onTimeClick } timeframe={ this.state.timeframe } />
 
         <div className="main-content">
           { charts }
