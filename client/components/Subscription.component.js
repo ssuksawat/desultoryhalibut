@@ -2,7 +2,7 @@ import React from 'react';
 import SubscribeInput from './SubscribeInput.component';
 import SubscribeList from './SubscribeList.component';
 
-const Subscription = ({currentNewTopicValue, onNewTopicChange, topics, handleAddTopicClick}) => {
+const Subscription = ({currentNewTopicValue, onNewTopicChange, onRemoveTopic, topics, handleAddTopicClick}) => {
 	return (
 		<div>
 			<SubscribeInput
@@ -10,7 +10,7 @@ const Subscription = ({currentNewTopicValue, onNewTopicChange, topics, handleAdd
 				onNewTopicChange={onNewTopicChange}
 				handleAddTopicClick={handleAddTopicClick}
 			/>
-			<SubscribeList topics={topics}/>
+		<SubscribeList onRemoveTopic={onRemoveTopic} topics={topics}/>
 		</div>
 	);
 }

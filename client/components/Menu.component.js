@@ -3,7 +3,7 @@ import Subscription from './Subscription.component';
 import Login from './login.component';
 import Signup from './Signup.component';
 
-const Menu = ({currentNewTopicValue, onNewTopicChange, topics, handleAddTopicClick, loginValues, login, signup}) => {
+const Menu = ({currentNewTopicValue, onNewTopicChange, onRemoveTopic, topics, handleAddTopicClick, loginValues, login, signup}) => {
 	return (
 		<ul id="slide-out" className="side-nav">
 		    <li><a data-target="modal1" className="modal-action modal-close waves-effect waves-green btn-flat btn modal-trigger login-btn">Login</a></li>
@@ -16,6 +16,7 @@ const Menu = ({currentNewTopicValue, onNewTopicChange, topics, handleAddTopicCli
 		    		onNewTopicChange={onNewTopicChange}
 		    		handleAddTopicClick={handleAddTopicClick}
 		    		topics={topics}
+						onRemoveTopic={onRemoveTopic}
 		    	/>
 		    </li>
 		</ul>

@@ -139,3 +139,10 @@ nav .button-collapse i { font-size: 1.5rem; }
 
   &:hover { background: #2bbbad; }
 }
+.subscription-item {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+
+  > span { flex: 1; }
+}
