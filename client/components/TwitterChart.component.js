@@ -48,6 +48,6 @@ export default class TwitterChart extends Component {
         </VictoryChart>
         <h4 style={{'textAlign': 'center'}}>{this.props.topic}</h4>
       </div>
-    )
+    );
   }
 }
