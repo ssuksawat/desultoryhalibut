@@ -1,4 +1,5 @@
 const UserTopic = require('./user-topics.model');
+const Topic = require('../topics/topic.model');
 
 
 module.exports = {
@@ -12,8 +13,7 @@ module.exports = {
 function addUserTopic(req, res) {
   // check to see if the user already has this topic.
   // if they do there is no need to add it to the db
-  console.log(req.body.topic.id);
-  UserTopic.find({
+  UserTopic.findOne({
     where: {
       topicId: req.body.topic.id,
       userId: req.user.id,
@@ -28,19 +28,26 @@ function addUserTopic(req, res) {
     }
   })
   .then(() => res.sendStatus(201))
-  .catch(err => res.sendStatus(500));
+  .catch(err => {
+    console.error(err);
+    res.sendStatus(500);
+  });
 }
 
 function getAllUserTopics(req, res) {
-  UserTopic.find({
+  UserTopic.findAll({
     where: {
       userId: req.user.id
-    }
+    },
+    include: [Topic]
   })
   .then((results) => {
     res.json(results);
   })
-  .catch(() => res.send(500));
+  .catch(err => {
+    console.error(err);
+    res.sendStatus(500);
+  });
 }
 
 function removeUserTopic(req, res, next) {

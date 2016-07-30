@@ -9,9 +9,10 @@ const UserTopic = sequelize.define('usertopic', {
   topicId: Sequelize.INTEGER
 });
 
-UserTopic.sync();
-
 User.belongsToMany(Topic, { through: UserTopic });
 Topic.belongsToMany(User, { through: UserTopic });
+UserTopic.belongsTo(Topic);
+
+UserTopic.sync();
 
 module.exports = UserTopic;

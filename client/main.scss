@@ -28,6 +28,24 @@ body {
   padding-right: 24px;
   flex: 1 1 300px;
   min-width: 300px;
+  max-width: 500px;
   background: white;
   border-radius: 4px;
+}
+
+.time-bar {
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+}
+.time-bar__toggle {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+.time-bar__toggle > i { color: grey; }
+.time-bar__toggle-label {
+  color: grey;
+  font-weight: 500;
+  margin-right: 12px;
 }
