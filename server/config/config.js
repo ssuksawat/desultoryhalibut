@@ -11,10 +11,10 @@ const config = {
     db: process.env.DATABASE_URL || 'postgres://postgres@localhost/sidestreet',
     logLevel: process.env.LOG_LEVEL || 'dev',
     twitter: {
-      consumer_key: process.env.TWITTER_CONSUMER_KEY || 'URBt6LanYTUDnvzmQEAQMId0F',
-      consumer_secret: process.env.TWITTER_CONSUMER_SECRET || 'qXOqcFMImuA0Zi09z8yzzFDJGRHvIVUiWlUiVlqPuZru6cwKgc',
-      access_token: process.env.TWITTER_ACCESS_TOKEN || '3232137186-rdbsH7cp39IENWqSbeYbjQq5Q4PBOVCFpJ0hgjz',
-      access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET || 'myufOQRWeSnxkNzkWEA7iDHDjOAWUsK7nP9yqwVLKzBqO'
+      consumer_key: process.env.TWITTER_CONSUMER_KEY || 'iuzErv06c19D6Jqo1xT8pJP1N',
+      consumer_secret: process.env.TWITTER_CONSUMER_SECRET || 'Z2AdiITIkBQPHi890hqaWIASlwEoc21G5Y2ggVsU9mEHuCFaOt',
+      access_token: process.env.TWITTER_ACCESS_TOKEN || '4809076273-VX2m838DyN7xbXmr85RLj6y3wbxIZdWWKw4hFBj',
+      access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET || 'eJ7Yb42vXDZ0cpmlIQQyjDvYZfeDJKDXejsNWvsshRQsX'
     }
   },
   production: {

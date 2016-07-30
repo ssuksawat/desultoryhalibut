@@ -21,33 +21,25 @@ export default class AppComponent extends Component {
       streams: '',
       currentNewTopicValue: '',
       topics: ['google', 'nintendo'],
-      timeframe: '1h'
+      timeframe: '12h'
     };
     this.setAppStateOnChange = this.setAppStateOnChange.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
     this.onNewTopicChange = this.onNewTopicChange.bind(this);
     this.handleAddTopicClick = this.handleAddTopicClick.bind(this);
-    this.fetchTweets = this.fetchTweets.bind(this);
     this.onTimeClick = this.onTimeClick.bind(this);
   }
 
   fetchTweets() {
-    const NORMALIZE_OFFSET = 5;
     const topicQuery = this.state.topics.map(topic => `topics=${topic}`).join('&');
     fetch(`api/twitter?${topicQuery}&timeframe=${this.state.timeframe}`)
       .then(res => res.json())
       .then(dataArray => {
         let streams = {};
-        dataArray.forEach((data, index) => {
-          const topicname = data.topicname;
-          data = {
-            time: index,
-            numTweets: data.volume,
-            sentimentAverage: data.score * NORMALIZE_OFFSET
-          };
-          streams[topicname] = streams[topicname] || [];
-          streams[topicname].push(data);
+        dataArray.forEach(data => {
+          streams[data.topicname] = streams[data.topicname] || [];
+          streams[data.topicname].push(data);
         });
         this.setState({ streams });
       })
@@ -55,8 +47,8 @@ export default class AppComponent extends Component {
   }
 
   componentWillMount() {
+    // setInterval(this.fetchTweets.bind(this), 5000);
     this.fetchTweets();
-    setInterval(this.fetchTweets, 5000);
   }
 
   componentDidMount() {
@@ -76,7 +68,7 @@ export default class AppComponent extends Component {
   }
 
   setAppStateOnChange(event) {
-    const newLoginState = this.state.login;
+    var newLoginState = this.state.login;
     newLoginState[event.target.name] = event.target.value;
     this.setState({
       login: newLoginState,
@@ -119,6 +111,7 @@ export default class AppComponent extends Component {
 
   handleAddTopicClick(event) {
     const newTopic = this.state.currentNewTopicValue;
+    if (!newTopic) { return; }
     fetch('api/topic/add', {
       method: 'POST',
       headers: {
@@ -152,16 +145,14 @@ export default class AppComponent extends Component {
   render() {
     let charts;
     if (this.state.streams) {
-      charts = this.state.topics
-          .filter(topic => this.state.streams[topic])
-          .map(topic => {
-            return <TwitterChart key={topic} topic={topic} data={this.state.streams[topic]} />
-          });
+      charts = Object.keys(this.state.streams).map(topic => {
+        return <TwitterChart key={topic} topic={topic} data={this.state.streams[topic]} />
+      });
     }
 
     return (
       <div>
-        <header>
+        <header className="page-header">
           <Navbar
             currentNewTopicValue={ this.state.currentNewTopicValue }
             onNewTopicChange={ this.onNewTopicChange }
@@ -183,12 +174,13 @@ export default class AppComponent extends Component {
           handleAddTopicClick={this.handleAddTopicClick}
           topics={this.state.topics}
         />
-
+      <div className="page-body">
         <Timeframe onTimeClick={ this.onTimeClick } timeframe={ this.state.timeframe } />
 
         <div className="main-content">
           { charts }
         </div>
+      </div>
       </div>
     );
   }

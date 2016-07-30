@@ -26,6 +26,7 @@ function watchChannels() {
     stream.on(channel, function(tweet) {
       cache[tag].total++;
       cache[tag].sentiment += sentiment(tweet.text).score;
+      console.log(tweet.text);
     });
   });
 
