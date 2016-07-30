@@ -53,19 +53,9 @@ export default class AppComponent extends Component {
     $(".modal-trigger").leanModal()
   }
 
-
-
   onNewTopicChange(event) {
     this.setState({
       currentNewTopicValue: event.target.value
-    });
-  }
-
-  onUsernameChange(event) {
-    var newLoginState = this.state.login;
-    newLoginState.username = event.target.value;
-    this.setState({
-      login: newLoginState
     });
   }
 
@@ -78,15 +68,9 @@ export default class AppComponent extends Component {
   }
 
   login() {
-    if (this.state.password !== this.state.confirmPassword) {
-      // for now:
-      alert('Passwords do not match')
-      return;
-    }
-    
-
     fetch('/api/auth/login', {
       method: 'POST',
+      headers: {'content-type': 'application/json'},
       body: JSON.stringify({
         username: this.state.login.username,
         password: this.state.login.password,
@@ -99,8 +83,15 @@ export default class AppComponent extends Component {
   }
 
   signup() {
+    if (this.state.login.password !== this.state.login.confirmPassword) {
+      // for now:
+      alert('Passwords do not match')
+      return;
+    }
+    
     fetch('/api/auth/signup', {
       method: 'POST',
+      headers: {'content-type': 'application/json'},
       body: JSON.stringify({
         username: this.state.login.username,
         password: this.state.login.password,

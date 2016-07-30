@@ -42,6 +42,7 @@ function addUser(req, res) {
 	return utils.hashPassword(req.body.password)
 		.then(hashedPassword => {
 			req.body.password = hashedPassword;
+			console.log('heres req.body: ', req.body);
 			return User.create(req.body);
 		})
 		.then(newUser => {

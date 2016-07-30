@@ -6,9 +6,16 @@ const LoginComponent = ({setAppStateOnChange, login, loginValues}) => {
       <div className="modal-content">
         <h4>Login</h4>
         <div className="input-field">
-          <input type="text" name="username" value={loginValues.username} placeholder="Username" onChange={ setAppStateOnChange }/>
-          <input type="password" name="password" value={loginValues.password} placeholder="Password" onChange={ setAppStateOnChange } />
-          <input type="password" name="confirmPassword" value={loginValues.confirmPassword} placeholder="Confirm Password" onChange={ setAppStateOnChange } />
+          <input type="text" name="username" 
+            value={ loginValues.username } 
+            placeholder="Username" 
+            onChange={ setAppStateOnChange }
+          />
+          <input type="password" name="password" 
+            value={ loginValues.password } 
+            placeholder="Password" 
+            onChange={ setAppStateOnChange } 
+          />
         </div>
       </div>
       <div className="modal-footer">
