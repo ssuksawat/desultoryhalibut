@@ -84,10 +84,11 @@ export default class AppComponent extends Component {
         password: this.state.login.password,
       }),
     })
-    .then(response => {
+    .then(res => res.json())
+    .then(body => {
       // cache the token in local storage, using the user id as the key
-      window.localStorage.setItem('jwt', response.body.token);
-    });
+      window.localStorage.setItem('jwt', body.token);
+    })
   }
 
   signup() {
@@ -101,9 +102,10 @@ export default class AppComponent extends Component {
         email: this.state.login.email,
       }),
     })
-    .then(response => {
+    .then(res => res.json())
+    .then(body => {
       // cache the token in local storage, using the user id as the key
-      window.localStorage.setItem('jwt', response.body.token);
+      window.localStorage.setItem('jwt', body.token);
     });
   }
 
