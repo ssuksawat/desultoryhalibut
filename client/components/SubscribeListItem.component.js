@@ -1,9 +1,9 @@
 import React from 'react';
 
-const SubscribeListItem = (props) => {
+const SubscribeListItem = ({topicName}) => {
 	return (
-		<div>
-		
-		</div>
+		<a href="#!" className="collection-item">{topicName}</a> 
 	);
 }
+
+export default SubscribeListItem;

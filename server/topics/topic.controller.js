@@ -9,6 +9,7 @@ module.exports = {
 
 // add the topic from user input if it does not already exist in db
 function addTopic(req, res, next) {
+  console.log('~~~~~~~~~~~~~~~~>', req.body);
   Topic.find({
     topic: req.body.topic
   })
@@ -21,7 +22,10 @@ function addTopic(req, res, next) {
       return topics;
     }
   })
-  .then(topic => next(null, topic))
+  .then(topic => {
+    req.body.topic = topic;
+    next(null);
+  }) 
   .catch(err => {
     console.error(`Error writing topic to db: ${err}`);
     res.status(500).send({message: 'Error adding new topic'});

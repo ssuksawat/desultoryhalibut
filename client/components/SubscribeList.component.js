@@ -1,12 +1,11 @@
 import React from 'react';
+import SubscribeListItem from './SubscribeListItem.component';
 
-const SubscribeList = (props) => {
+const SubscribeList = ({topics}) => {
 	return (
-		<div>
-			<a>SubscribeListItems</a>
-			<a>SubscribeListItems</a>
-			<a>SubscribeListItems</a>
-		</div>
+		<div className="collection">
+			{topics.map(topicName => <SubscribeListItem key={topicName} topicName={topicName}/>)}
+    </div>
 	);
 }
 

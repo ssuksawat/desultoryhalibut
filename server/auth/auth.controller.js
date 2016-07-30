@@ -42,7 +42,6 @@ function addUser(req, res) {
 	return utils.hashPassword(req.body.password)
 		.then(hashedPassword => {
 			req.body.password = hashedPassword;
-			console.log('heres req.body: ', req.body);
 			return User.create(req.body);
 		})
 		.then(newUser => {
@@ -60,7 +59,6 @@ function addUser(req, res) {
 			});
 		})
 		.catch(err => {
-			console.error(err);
 			res.status(401).send({message: 'this username has already been taken'});
 		});
 }
