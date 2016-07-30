@@ -3,7 +3,7 @@ import Navbar from './NavBar.component';
 import Menu from './Menu.component';
 import TwitterChart from './TwitterChart.component';
 import Login from './login.component';
-import Signup from './signup.component';
+import Signup from './Signup.component';
 import Timeframe from './Timeframe.component';
 
 export default class AppComponent extends Component {
@@ -20,7 +20,7 @@ export default class AppComponent extends Component {
       },
       streams: '',
       currentNewTopicValue: '',
-      topics: ['google', 'Distributed Computing', 'Internet of Things'],
+      topics: ['google', 'nintendo'],
       timeframe: '1h'
     };
     this.setAppStateOnChange = this.setAppStateOnChange.bind(this);
@@ -112,7 +112,7 @@ export default class AppComponent extends Component {
     fetch('api/topic/add', {
       method: 'POST',
       headers: {
-        'Authorization': `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0ZXIifQ.yJ5p5AwTgYXiMLIXMrtznQ9WLdFxg6h09o0CICEfLyo`,
+        'Authorization': `JWT ${window.localStorage.getItem('jwt')}`,
         'Content-type': 'application/json'
       },
       body: JSON.stringify({
@@ -172,7 +172,7 @@ export default class AppComponent extends Component {
           topics={this.state.topics}
         />
 
-        <Timeframe setTimeframe={ this.onTimeClick } timeframe={ this.state.timeframe } />
+        <Timeframe onTimeClick={ this.onTimeClick } timeframe={ this.state.timeframe } />
 
         <div className="main-content">
           { charts }
