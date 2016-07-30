@@ -21,14 +21,14 @@ function addUserTopic(req, res) {
   })
   .then(row => {
     if (!row) {
-      UserTopic.create({
+      return UserTopic.create({
         topicId: req.body.topic.id,
         userId: req.user.id,
       })
-      .then(() => res.sendStatus(201))
-      .catch(err => res.sendStatus(500));
     }
-  });
+  })
+  .then(() => res.sendStatus(201))
+  .catch(err => res.sendStatus(500));
 }
 
 function getAllUserTopics(req, res) {
