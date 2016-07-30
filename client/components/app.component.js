@@ -115,6 +115,7 @@ export default class AppComponent extends Component {
     .then(body => {
       // cache the token in local storage, using the user id as the key
       window.localStorage.setItem('jwt', body.token);
+      window.localStorage.setItem('fullName', body.user.fullName);
     });
   }
 
