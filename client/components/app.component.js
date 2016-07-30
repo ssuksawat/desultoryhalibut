@@ -30,7 +30,7 @@ export default class AppComponent extends Component {
 
   fetchTweets () {
     const reqOps = {
-      headers: { 'Authorization': `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0ZXMifQ.6D4AjQEEqPhomiUJyHWA6dp_Ffkzzje9yu4ffrPbZG4` }
+      headers: { 'Authorization': `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0ZXIifQ.yJ5p5AwTgYXiMLIXMrtznQ9WLdFxg6h09o0CICEfLyo` }
     };
     const topicQuery = this.state.topics.map(topic => `topics=${topic}`).join('&');
     fetch(`api/twitter?${topicQuery}&timeframe=${this.state.timeframe}`, reqOps)
@@ -112,7 +112,7 @@ export default class AppComponent extends Component {
     fetch('api/topic/add', {
       method: 'POST',
       headers: { 
-        'Authorization': `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0ZXMifQ.6D4AjQEEqPhomiUJyHWA6dp_Ffkzzje9yu4ffrPbZG4`,
+        'Authorization': `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0ZXIifQ.yJ5p5AwTgYXiMLIXMrtznQ9WLdFxg6h09o0CICEfLyo`,
         'Content-type': 'application/json'
       },
       body: JSON.stringify({
