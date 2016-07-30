@@ -4,6 +4,6 @@ const authCtrl = require('./auth.controller.js');
 
 authRouter.post('/login', authCtrl.login);
 authRouter.post('/signup', authCtrl.addUser);
-authRouter.post('/checkToken', passport.authenticate('jwt'), authCtrl.affirmValidToken);
+authRouter.post('/checkToken', passport.authenticate('jwt', {session: false}), authCtrl.affirmValidToken);
 
 module.exports = authRouter;
