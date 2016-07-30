@@ -1,21 +1,20 @@
 import React from 'react';
 
-const LoginComponent = ({setAppStateOnChange, login}) => {
-  render() {
-    return (
-      <div id="modal1" class="modal">
-        <div class="modal-content">
-          <h4>Login</h4>
-            <input type="text" name="username" placeholder="Username" onChange={ setAppStateOnChange }>
-            <input type="password" name="password" placeholder="Password" onChange={ setAppStateOnChange }>
-            <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={ setAppStateOnChange }>
-        </div>
-        <div class="modal-footer">
-          <a href="#!" onClick={ login } class="modal-action modal-close waves-effect waves-green btn-flat">Login</a>
-        </div>
+const LoginComponent = ({setAppStateOnChange, login, loginValues}) => {
+  return (
+    <div id="modal1" className="modal">
+      <div className="modal-content">
+        <h4>Login</h4>
+        <div className="input-field">
+          <input type="text" name="username" value={loginValues.username} placeholder="Username" onChange={ function(value){console.log('hi: ', value) }} />
+          <input type="password" name="password" value={loginValues.password} placeholder="Password" onChange={ setAppStateOnChange } />
+          <input type="password" name="confirmPassword" value={loginValues.confirmPassword} placeholder="Confirm Password" onChange={ setAppStateOnChange } />
       </div>
-      );
-  }
+      </div>
+      <div className="modal-footer">
+      </div>
+    </div>
+  );
 }
 
-exports default LoginComponent;
+export default LoginComponent;

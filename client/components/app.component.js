@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
-import NavBar from './NavBar.component';
+import Navbar from './NavBar.component';
 import TwitterChart from './TwitterChart.component';
+import Login from './login.component';
+import Signup from './signup.component';
 
 export default class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       login: {
-        username: null,
-        password: null,
-        confirmPassword: null,
-        fullName: null,
-        email: null,
+        username: '',
+        password: '',
+        confirmPassword: '',
+        fullName: '',
+        email: '',
       },
-      streams: null,
-      currentNewTopicValue: null,
+      streams: '',
+      currentNewTopicValue: '',
     };
     this.setAppStateOnChange = this.setAppStateOnChange.bind(this);
-    this.login.bind(this);
-    this.signup.bind(this);
+    this.login = this.login.bind(this);
+    this.signup = this.signup.bind(this);
     this.onNewTopicChange = this.onNewTopicChange.bind(this);
   }
 
@@ -47,7 +49,11 @@ export default class AppComponent extends Component {
       edge: 'right',
       closeOnClick: true,
     });
+
+    $(".modal-trigger").leanModal()
   }
+
+
 
   onNewTopicChange(event) {
     this.setState({
@@ -56,9 +62,11 @@ export default class AppComponent extends Component {
   }
 
   setAppStateOnChange(event) {
+    var newLoginState = this.state.login;
+    newLoginState[event.target.name] = event.target.value;
     this.setState({
-      login[event[target.name]]: event.target.value
-    })
+      login: newLoginState,
+    });
   }
 
   login() {
@@ -68,12 +76,12 @@ export default class AppComponent extends Component {
       return;
     }
     
+
     fetch('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify({
-        this.state.login.username,
-        this.state.login.password,
-        
+        username: this.state.login.username,
+        password: this.state.login.password,
       }),
     })
       .then(response => {
@@ -86,10 +94,10 @@ export default class AppComponent extends Component {
     fetch('/api/auth/signup', {
       method: 'POST',
       body: JSON.stringify({
-        this.state.login.username,
-        this.state.login.password,
-        this.state.login.fullName,
-        this.state.login.email,
+        username: this.state.login.username,
+        password: this.state.login.password,
+        fullName: this.state.login.fullName,
+        email: this.state.login.email,
       }),
     })
       .then(response => {
@@ -110,14 +118,15 @@ export default class AppComponent extends Component {
       <div>
         <header>
           <Navbar setAppStateOnChange={ this.setAppStateOnChange }
-                  loginValues={this.state.login}
+                  loginValues={ this.state.login }
                   login={ this.login }
                   signup={ this.signup }
-                  currentNewTopicValue={this.state.currentNewTopicValue}
-                  onNewTopicChange={this.onNewTopicChange}
+                  currentNewTopicValue={ this.state.currentNewTopicValue }
+                  onNewTopicChange={ this.onNewTopicChange }
         />
         </header>
-
+        <Login loginValues={ this.state.login }/>
+        <Signup loginValues={ this.state.login }/>
         <div className="main-content">
           { charts }
         </div>
