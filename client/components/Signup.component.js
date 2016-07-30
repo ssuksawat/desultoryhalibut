@@ -11,6 +11,11 @@ const Signup = ({setAppStateOnChange, signup, loginValues}) => {
           <input type="email" name="email" value={loginValues.email} placeholder="Email" onChange={ setAppStateOnChange } />
       </div>
       <div className="modal-footer">
+        <a
+          href="#!" 
+          onClick={ signup } 
+          className=" modal-action modal-close waves-effect waves-green btn-flat">Signup
+        </a>
       </div>
     </div>
   );

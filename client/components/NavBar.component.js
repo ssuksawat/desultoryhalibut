@@ -16,10 +16,7 @@ export default class NavBar extends Component {
           <Menu
             currentNewTopicValue={this.props.currentNewTopicValue}
             onNewTopicChange={this.props.onNewTopicChange}
-            setAppStateOnChange={ this.props.setAppStateOnChange }
-            loginValues={ this.props.loginValues }
-            login={ this.props.login }
-            signup={ this.props.signup }
+            
           />
         </nav>
     );

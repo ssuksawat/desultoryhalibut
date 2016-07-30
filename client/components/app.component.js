@@ -61,6 +61,14 @@ export default class AppComponent extends Component {
     });
   }
 
+  onUsernameChange(event) {
+    var newLoginState = this.state.login;
+    newLoginState.username = event.target.value;
+    this.setState({
+      login: newLoginState
+    });
+  }
+
   setAppStateOnChange(event) {
     var newLoginState = this.state.login;
     newLoginState[event.target.name] = event.target.value;
@@ -117,19 +125,24 @@ export default class AppComponent extends Component {
     return (
       <div>
         <header>
-          <Navbar setAppStateOnChange={ this.setAppStateOnChange }
-                  loginValues={ this.state.login }
-                  login={ this.login }
-                  signup={ this.signup }
-                  currentNewTopicValue={ this.state.currentNewTopicValue }
-                  onNewTopicChange={ this.onNewTopicChange }
-        />
+          <Navbar
+            currentNewTopicValue={ this.state.currentNewTopicValue }
+            onNewTopicChange={ this.onNewTopicChange }
+          />
         </header>
-        <Login loginValues={ this.state.login }/>
-        <Signup loginValues={ this.state.login }/>
-        <div className="main-content">
-          { charts }
-        </div>
+          <Login 
+            loginValues={ this.state.login }
+            login={ this.login }
+            setAppStateOnChange={ this.setAppStateOnChange }
+          />
+          <Signup 
+            loginValues={ this.state.login } 
+            signup={ this.signup } 
+            setAppStateOnChange={ this.setAppStateOnChange }
+          />
+          <div className="main-content">
+            { charts }
+          </div>
       </div>
     );
   }
