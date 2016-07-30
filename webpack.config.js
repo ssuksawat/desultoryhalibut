@@ -2,6 +2,7 @@ var path = require('path');
 
 var config = {
   context: path.join(__dirname, 'client'),
+  devtool: "#inline-source-map",
   entry: [
     './main.js',
   ],

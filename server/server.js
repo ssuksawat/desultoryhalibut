@@ -3,7 +3,8 @@ const config = require('./config/config');
 
 const app = express();
 
-
+require('./config/sequelize');
+require('./config/passport');
 require('./config/express')(app, config);
 require('./config/routes')(app, config);
 

@@ -14,7 +14,6 @@ const TweetMetric = sequelize.define('tweetmetric', {
   }]
 });
 
-
 Topic.hasMany(TweetMetric, { foreignKey: 'topicId'});
 TweetMetric.belongsTo(Topic, {foreignKey: 'topicId'});
 

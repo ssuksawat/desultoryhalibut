@@ -10,6 +10,7 @@ export default class AppComponent extends Component {
       streams: null,
       currentNewTopicValue: '',
       topics: ['Squirrels', 'Distributed Computing', 'Internet of Things'],
+      timeframe: '1h'
     };
 
     this.onNewTopicChange = this.onNewTopicChange.bind(this);
@@ -17,13 +18,17 @@ export default class AppComponent extends Component {
   }
 
   fetchTweets () {
-    fetch('api/twitter') // TODO: add query for "topics" and "timeframe"
+    const reqOps = {
+      headers: { 'Authorization': `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJzb21wb3AyIn0.-nugdkoFb2y2fLOR4ww_35_K2e39ABr8Y4rbKipJ8qI` }
+    };
+    const topicQuery = this.state.topics.map(topic => `topics=${topic}`).join('&');
+    fetch(`api/twitter?${topicQuery}&timeframe=${this.state.timeframe}`, reqOps)
       .then(res => res.json())
       .then(dataArray => {
         let streams = {};
         dataArray.forEach(data => {
-          streams[data.topic] = streams[data.topic] || [];
-          streams[data.topic].push(data);
+          streams[data.topicname] = streams[data.topicname] || [];
+          streams[data.topicname].push(data);
         });
         this.setState({ streams });
       })
@@ -31,8 +36,8 @@ export default class AppComponent extends Component {
   }
 
   componentWillMount() {
-    // setInterval(this.fetchTweets.bind(this), 5000);
-    // this.fetchTweets();
+    setInterval(this.fetchTweets.bind(this), 5000);
+    this.fetchTweets();
   }
 
   componentDidMount() {
