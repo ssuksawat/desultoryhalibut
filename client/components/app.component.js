@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar.component';
+import Menu from './Menu.component';
 import TwitterChart from './TwitterChart.component';
 
 export default class AppComponent extends Component {
@@ -7,10 +8,12 @@ export default class AppComponent extends Component {
     super(props);
     this.state = {
       streams: null,
-      currentNewTopicValue: ""
+      currentNewTopicValue: '',
+      topics: ['Squirrels', 'Distributed Computing', 'Internet of Things'],
     };
 
     this.onNewTopicChange = this.onNewTopicChange.bind(this);
+    this.handleAddTopicClick = this.handleAddTopicClick.bind(this);
   }
 
   fetchTweets () {
@@ -36,14 +39,44 @@ export default class AppComponent extends Component {
     $(".button-collapse").sideNav({
       menuWidth: 500,
       edge: 'right',
-      closeOnClick: true,
+      closeOnClick: false,
     });
   }
 
   onNewTopicChange(event) {
     this.setState({
-      currentNewTopicValue: event.target.value
+      currentNewTopicValue: event.target.value,
     });
+  }
+
+  handleAddTopicClick(event) {
+    const newTopic = this.state.currentNewTopicValue;
+    console.log(newTopic);
+    fetch('api/topic/add', {
+      method: 'POST',
+      headers: {  
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        topic: newTopic,
+      })
+    })
+    .then(res => {
+      if (res.status >= 400) {
+        throw new Error('Something went wrong *Shrug*');
+      }
+      return res;
+    })
+    .then(res => res.json())
+    .then(res => {
+
+      console.log('hi');
+      this.setState({
+        topics: this.state.topics.concat(newTopic),
+      })
+    })
+    .catch(err => console.error(err));
+
   }
 
   render() {
@@ -57,11 +90,14 @@ export default class AppComponent extends Component {
     return (
       <div>
         <header>
-          <NavBar
-            currentNewTopicValue={this.state.currentNewTopicValue}
-            onNewTopicChange={this.onNewTopicChange}
-          />
+          <NavBar />
         </header>
+        <Menu
+          currentNewTopicValue={this.state.currentNewTopicValue}
+          onNewTopicChange={this.onNewTopicChange}
+          handleAddTopicClick={this.handleAddTopicClick}
+          topics={this.state.topics}
+        />
 
         <div className="main-content">
           { charts }
