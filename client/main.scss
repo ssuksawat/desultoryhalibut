@@ -53,7 +53,6 @@ nav .button-collapse i { font-size: 1.5rem; }
 /***** Time Component Styling *****/
 
 .time-bar {
-  border-top: 1px solid rgba(0,0,0,.1);
   padding: 16px 32px;
   display: flex;
   align-items: center;
@@ -65,6 +64,7 @@ nav .button-collapse i { font-size: 1.5rem; }
 }
 .time-bar__toggle > a { color: #26a69a; }
 .time-bar__toggle > i { color: lightgrey; }
+.time-bar__toggle > i { color: grey; }
 .time-bar__toggle-label {
   color: grey;
   font-weight: 500;
