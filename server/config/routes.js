@@ -7,7 +7,7 @@ const passport = require('passport');
 
 module.exports = function(app, config) {
 
-  app.use('/api/twitter', passport.authenticate('jwt', {session: false}), TwitterRouter);
+  app.use('/api/twitter', TwitterRouter);
   app.use('/api/topic', passport.authenticate('jwt', {session: false}), TopicRouter);
   app.use('/api/usertopic', passport.authenticate('jwt', {session: false}), UserTopicsRouter);
   app.use('/api/auth', AuthRouter);

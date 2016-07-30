@@ -10,16 +10,18 @@ module.exports = {
 // add the topic from user input if it does not already exist in db
 function addTopic(req, res, next) {
   console.log('~~~~~~~~~~~~~~~~>', req.body);
-  Topic.find({
-    topic: req.body.topic
+  Topic.findOne({
+    where: {topic: req.body.topic}
   })
-  .then(topics => {
-    if (!topics) {
+  .then(topic => {
+    console.log('Yo topic! ', topic);
+    if (!topic) {
+      console.log('I create yo shet');
       return Topic.create({
         topic: req.body.topic
       });
     } else {
-      return topics;
+      return topic;
     }
   })
   .then(topic => {
