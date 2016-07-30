@@ -6,6 +6,7 @@ var config = {
   entry: [
     './main.js',
   ],
+  devtool: "#inline-source-map",
   output: {
     path: path.join(__dirname, 'client/www/dist'),
     filename: 'bundle.js',

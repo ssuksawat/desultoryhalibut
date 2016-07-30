@@ -1,3 +1,5 @@
+'use strict';
+
 const jwt = require('jwt-simple');
 const config = require('../config/config');
 const utils = require('../config/utils');
@@ -5,11 +7,11 @@ const User = require('../users/user.model');
 const compare = utils.comparePassword;
 
 
-module.exports  = {
-	login,
+module.exports = {
+  login,
 	addUser,
-	affirmValidToken
-}
+	affirmValidToken,
+};
 
 function login(req, res) {
 	let currentUser;
@@ -57,7 +59,6 @@ function addUser(req, res) {
 			});
 		})
 		.catch(err => {
-			console.error(err);
 			res.status(401).send({message: 'this username has already been taken'});
 		});
 }

@@ -27,7 +27,7 @@ const config = {
       consumer_key: process.env.TWITTER_CONSUMER_KEY || 'QVTSH5DZGllrzCOK6ZzJMdc7c',
       consumer_secret: process.env.TWITTER_CONSUMER_SECRET || '1T5fG8Spwnd6Owry9bdusvQP6ePo3bi4nHBda1r53kZl6vKMc8',
       access_token: process.env.TWITTER_ACCESS_TOKEN || '3327635388-191K4BPqdz4OdNrEvgZCojJMxXhqRUGXH3YJu0X',
-      access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET || 'gXN4stJjlcArq194B4LaSQL2vxlQlV5k6qIRtZ2HB4L8M'
+      access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET || 'gXN4stJjlcArq194B4LaSQL2vxlQlV5k6qIRtZ2HB4L8M',
     }
   }
 };
