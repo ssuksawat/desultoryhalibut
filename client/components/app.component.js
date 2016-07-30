@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
-import NavBar from './NavBar.component';
+import Navbar from './NavBar.component';
 import Menu from './Menu.component';
 import TwitterChart from './TwitterChart.component';
+import Login from './login.component';
+import Signup from './signup.component';
 
 export default class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      streams: null,
+      login: {
+        username: '',
+        password: '',
+        confirmPassword: '',
+        fullName: '',
+        email: '',
+      },
+      streams: '',
       currentNewTopicValue: '',
       topics: ['google', 'Distributed Computing', 'Internet of Things'],
       timeframe: '1h'
     };
-
+    this.setAppStateOnChange = this.setAppStateOnChange.bind(this);
+    this.login = this.login.bind(this);
+    this.signup = this.signup.bind(this);
     this.onNewTopicChange = this.onNewTopicChange.bind(this);
     this.handleAddTopicClick = this.handleAddTopicClick.bind(this);
   }
@@ -46,11 +57,53 @@ export default class AppComponent extends Component {
       edge: 'right',
       closeOnClick: false,
     });
+
+    $(".modal-trigger").leanModal()
   }
 
   onNewTopicChange(event) {
     this.setState({
       currentNewTopicValue: event.target.value,
+    });
+  }
+
+  setAppStateOnChange(event) {
+    var newLoginState = this.state.login;
+    newLoginState[event.target.name] = event.target.value;
+    this.setState({
+      login: newLoginState,
+    });
+  }
+
+  login() {
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({
+        username: this.state.login.username,
+        password: this.state.login.password,
+      }),
+    })
+    .then(response => {
+      // cache the token in local storage, using the user id as the key
+      window.localStorage.setItem('jwt', response.body.token);
+    });
+  }
+
+  signup() {
+    fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({
+        username: this.state.login.username,
+        password: this.state.login.password,
+        fullName: this.state.login.fullName,
+        email: this.state.login.email,
+      }),
+    })
+    .then(response => {
+      // cache the token in local storage, using the user id as the key
+      window.localStorage.setItem('jwt', response.body.token);
     });
   }
 
@@ -78,7 +131,6 @@ export default class AppComponent extends Component {
       })
     })
     .catch(err => console.error(err));
-
   }
 
   render() {
@@ -92,8 +144,21 @@ export default class AppComponent extends Component {
     return (
       <div>
         <header>
-          <NavBar />
+          <Navbar
+            currentNewTopicValue={ this.state.currentNewTopicValue }
+            onNewTopicChange={ this.onNewTopicChange }
+          />
         </header>
+          <Login 
+            loginValues={ this.state.login }
+            login={ this.login }
+            setAppStateOnChange={ this.setAppStateOnChange }
+          />
+          <Signup 
+            loginValues={ this.state.login } 
+            signup={ this.signup } 
+            setAppStateOnChange={ this.setAppStateOnChange }
+          />
         <Menu
           currentNewTopicValue={this.state.currentNewTopicValue}
           onNewTopicChange={this.onNewTopicChange}

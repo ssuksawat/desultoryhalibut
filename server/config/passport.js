@@ -10,14 +10,14 @@ passport.use(new JwtStrategy(
     jwtFromRequest: ExtractJwt.fromAuthHeader()
   }, (jwtPayload, done) => {
     User.findOne({ where: { id: jwtPayload.id }})
-      .then(user => {
-        if (user) {
-          //see if this still works if comment out req.user = user (i.e. it is done automatically)
-          done(null, user);
-        } else {
-          done(null, false);
-        }
-      })
-      .catch(done);
+    .then(user => {
+      if (user) {
+        //see if this still works if comment out req.user = user (i.e. it is done automatically)
+        done(null, user);
+      } else {
+        done(null, false);
+      }
+    })
+    .catch(done);
   }
 ));
