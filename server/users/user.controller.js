@@ -12,7 +12,6 @@ function checkNumTopics(req, res, next) {
   .then(user => {
     if (user.numtopics < 8) {
       //update the count
-      console.log('numtopics ', user.numtopics);
       // sequelize.literal(`(UPDATE users SET numtopics = numtopics + 1 WHERE id=${req.user.id})`);
       User.update({
         numtopics: user.numtopics + 1,
@@ -31,4 +30,3 @@ function checkNumTopics(req, res, next) {
     res.sendStatus(500);
   });
 }
-

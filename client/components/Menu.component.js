@@ -3,19 +3,20 @@ import Subscription from './Subscription.component';
 import Login from './login.component';
 import Signup from './Signup.component';
 
-const Menu = ({currentNewTopicValue, onNewTopicChange, topics, handleAddTopicClick, loginValues, login, signup}) => {
+const Menu = ({currentNewTopicValue, onNewTopicChange, onRemoveTopic, topics, handleAddTopicClick, loginValues, login, signup}) => {
 	return (
 		<ul id="slide-out" className="side-nav">
-		    <li><a data-target="modal1" className="modal-action modal-close waves-effect waves-green btn-flat btn modal-trigger">Login</a></li>
-		    <li><a data-target="modal2" className=" modal-action modal-close waves-effect waves-green btn-flat btn modal-trigger">Signup</a></li>
-		    <li><a><div className="divider"></div></a></li>
-		    <li><a className="subheader">Subscription stuff:</a></li>
+		    <li><a data-target="modal1" className="modal-action modal-close waves-effect waves-green btn-flat btn modal-trigger login-btn">Login</a></li>
+		    <li className="signup-section">
+					<span>Don't have an account? </span><a data-target="modal2" className="modal-action modal-close modal-trigger">Signup</a></li>
+		    <li><div className="divider"></div></li>
 		    <li>
-		    	<Subscription 
+		    	<Subscription
 		    		currentNewTopicValue={currentNewTopicValue}
 		    		onNewTopicChange={onNewTopicChange}
 		    		handleAddTopicClick={handleAddTopicClick}
 		    		topics={topics}
+						onRemoveTopic={onRemoveTopic}
 		    	/>
 		    </li>
 		</ul>
@@ -23,4 +24,3 @@ const Menu = ({currentNewTopicValue, onNewTopicChange, topics, handleAddTopicCli
 }
 
 export default Menu;
-

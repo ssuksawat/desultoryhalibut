@@ -28,7 +28,8 @@ function login(req, res) {
 				token: token,
 				user: {
 					id: currentUser.id,
-					username: currentUser.username
+					username: currentUser.username,
+          fullName: currentUser.fullName
 				}
 			});
 		})

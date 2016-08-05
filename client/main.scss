@@ -4,24 +4,41 @@
   box-sizing: border-box;
 }
 
+/***** Shared *****/
+
 body {
   background: rgba(0,0,0,.05);
   font-size: 14px;
 }
 
 .app-logo {
-  padding: 8px 24px;
-  font-size: 24px;
+  padding: 8px;
+  font-size: 1.2rem;
+}
+
+.nav-wrapper {
+  padding: 0 16px;
+  background: none;
+  box-shadow: none;
+
+  a { color: rgba(0,0,0,.5) !important; }
+}
+nav .button-collapse i { font-size: 1.5rem; }
+
+.page-body {
+  padding: 0 64px;
 }
 
 .main-content {
-  padding: 8px 16px;
+  padding: 12px 24px;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   -ms-align-items: center;
   align-items: center;
 }
+
+/***** Chart Component Styling *****/
 
 .chart-card {
   margin: 12px;
@@ -33,7 +50,10 @@ body {
   border-radius: 4px;
 }
 
+/***** Time Component Styling *****/
+
 .time-bar {
+  border-top: 1px solid rgba(0,0,0,.1);
   padding: 16px 32px;
   display: flex;
   align-items: center;
@@ -43,9 +63,86 @@ body {
   align-items: center;
   margin-left: auto;
 }
-.time-bar__toggle > i { color: grey; }
+.time-bar__toggle > a { color: #26a69a; }
+.time-bar__toggle > i { color: lightgrey; }
 .time-bar__toggle-label {
   color: grey;
   font-weight: 500;
   margin-right: 12px;
+}
+
+/***** Side-nav Component Styling *****/
+
+.side-nav {
+  padding: 16px;
+
+}
+.side-nav a.login-btn {
+  background: #26a69a;
+  color: white;
+}
+
+/* Overrides */
+.side-nav .signup-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    margin-left: 8px;
+    display: inline;
+  }
+  a:hover {
+    background: none;
+    color: #26a69a;
+    cursor: pointer;
+  }
+}
+.side-nav .divider {
+  margin: 16px 0 32px 0;
+}
+
+/***** Subscription Component Styling *****/
+
+.subscription-input {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.subscription-input input,
+.subscription-input button {
+  height: 50px;
+  border: 1px solid lightgrey;
+}
+.subscription-input input {
+  margin: 0;
+  padding: 8px 16px;
+  flex: 1;
+  border-right: none;
+
+  /* Override Materialize */
+  box-sizing: border-box;
+  &:focus {
+    border: 1px solid #26a69a !important;
+    box-shadow: none !important;
+  }
+}
+.subscription-input button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  color: white;
+  background: #26a69a;
+  border: 1px solid #26a69a;
+
+  &:hover { background: #2bbbad; }
+}
+.subscription-item {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+
+  > span { flex: 1; }
 }

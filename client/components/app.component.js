@@ -30,6 +30,7 @@ export default class AppComponent extends Component {
     this.handleAddTopicClick = this.handleAddTopicClick.bind(this);
     this.fetchTweets = this.fetchTweets.bind(this);
     this.onTimeClick = this.onTimeClick.bind(this);
+    this.onRemoveTopic = this.onRemoveTopic.bind(this);
   }
 
   fetchTweets() {
@@ -114,6 +115,7 @@ export default class AppComponent extends Component {
     .then(body => {
       // cache the token in local storage, using the user id as the key
       window.localStorage.setItem('jwt', body.token);
+      window.localStorage.setItem('fullName', body.user.fullName);
     });
   }
 
@@ -149,6 +151,14 @@ export default class AppComponent extends Component {
     });
   }
 
+  onRemoveTopic(topic) {
+    const topics = this.state.topics;
+    topics.splice(topics.indexOf(topic), 1);
+    this.setState({
+      topics: topics
+    });
+  }
+
   render() {
     let charts;
     if (this.state.streams) {
@@ -161,7 +171,7 @@ export default class AppComponent extends Component {
 
     return (
       <div>
-        <header>
+        <header className="page-header">
           <Navbar
             currentNewTopicValue={ this.state.currentNewTopicValue }
             onNewTopicChange={ this.onNewTopicChange }
@@ -182,13 +192,15 @@ export default class AppComponent extends Component {
           onNewTopicChange={this.onNewTopicChange}
           handleAddTopicClick={this.handleAddTopicClick}
           topics={this.state.topics}
+          onRemoveTopic={this.onRemoveTopic}
         />
-
+      <div className="page-body">
         <Timeframe onTimeClick={ this.onTimeClick } timeframe={ this.state.timeframe } />
 
         <div className="main-content">
           { charts }
         </div>
+      </div>
       </div>
     );
   }
