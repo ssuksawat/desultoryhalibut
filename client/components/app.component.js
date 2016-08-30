@@ -35,6 +35,10 @@ export default class AppComponent extends Component {
 
   fetchTweets() {
     const NORMALIZE_OFFSET = 5;
+    this.onTimeClick = this.onTimeClick.bind(this);
+  }
+
+  fetchTweets() {
     const topicQuery = this.state.topics.map(topic => `topics=${topic}`).join('&');
     fetch(`api/twitter?${topicQuery}&timeframe=${this.state.timeframe}`)
       .then(res => res.json())
@@ -159,6 +163,12 @@ export default class AppComponent extends Component {
     });
   }
 
+  onTimeClick(timeframe) {
+    this.setState({
+      timeframe: timeframe || '1h'
+    });
+  }
+
   render() {
     let charts;
     if (this.state.streams) {
@@ -196,6 +206,8 @@ export default class AppComponent extends Component {
         />
       <div className="page-body">
         <Timeframe onTimeClick={ this.onTimeClick } timeframe={ this.state.timeframe } />
+
+        <Timeframe setTimeframe={ this.onTimeClick } timeframe={ this.state.timeframe } />
 
         <div className="main-content">
           { charts }
