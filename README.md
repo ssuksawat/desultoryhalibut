@@ -1,8 +1,8 @@
 # Sidestreet Analytics
 Make smarter decisions. Sidestreet uses Twitter data streams to quantify sentiment and popularity of trending topics, displaying the analysis in a clean charts rendered in Victory JS and React. <br/>
 
-![alt text](.client/www/assets/screenshots/Sidestreet-1.png "Dashboard") <br/>
-![alt text](.client/www/assets/screenshots/Sidestreet-2.png "Sidebar") <br/>
+![alt text](./client/www/assets/screenshots/Sidestreet-1.png "Dashboard") <br/>
+![alt text](./client/www/assets/screenshots/Sidestreet-2.png "Sidebar") <br/>
 
 ## Architecture
 ![alt text](./client/www/assets/screenshots/ArchitectureDiagram.png "Sidestreet Architecture")
