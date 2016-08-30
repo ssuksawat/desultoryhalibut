@@ -4,6 +4,9 @@ Make smarter decisions. Sidestreet uses Twitter data streams to quantify sentime
 ![alt text](.client/www/assets/screenshots/Sidestreet-1.png "Dashboard") <br/>
 ![alt text](.client/www/assets/screenshots/Sidestreet-2.png "Sidebar") <br/>
 
+## Architecture
+![alt text](./client/www/assets/screenshots/ArchitectureDiagram.png "Sidestreet Architecture")
+
 ## Team
 * Design Lead, Software Engineer  - Sompop Suksawat
 * Product Owner, Software Engineer - Andy Brown
