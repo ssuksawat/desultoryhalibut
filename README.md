@@ -1,37 +1,22 @@
-# desultoryhalibut
+# Sidestreet Analytics
+Make smarter decisions. Sidestreet uses Twitter data streams to quantify sentiment and popularity of trending topics, displaying the analysis in a clean charts rendered in Victory JS and React. <br/>
 
-Welcome to our awesome, super organized project.
+![alt text](.client/www/assets/screenshots/Sidestreet-1.png "Dashboard") <br/>
+![alt text](.client/www/assets/screenshots/Sidestreet-2.png "Sidebar") <br/>
 
+## Architecture
+![alt text](./client/www/assets/screenshots/ArchitectureDiagram.png "Sidestreet Architecture")
 
+## Team
+* Design Lead, Software Engineer  - Sompop Suksawat
+* Product Owner, Software Engineer - Andy Brown
+* Scrum Master, Software Engineer - Justin Ross
+* Software Engineer - Conway Wang
 
-Set things up!
----
+## How To Run
 
-```
-npm install
-```
-
-Start things up!
----
-
-```
-npm start
-```
-
-
-Compile w/ Webpack
----
-
-```
-npm run compile
-```
-
-Run tests
----
-
-```
-npm test
-```
-
-
-Text analysis provided by AlchemyAPI: www.alchemyapi.com 
+1. Fork the repo `git clone https://github.com/CremaLabs/Sidestreet-Analytics.git && cd Sidestreet-Analytics`
+2. Install package dependencies: `npm install`
+3. Transpile react: `npm run compile`
+4. Start the server: `npm start`
+5. Visit the site: http://localhost:3000
